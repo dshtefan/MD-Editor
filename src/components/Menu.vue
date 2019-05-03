@@ -3,10 +3,10 @@
       <a class="docs tabs" href="*">
          Docs
       </a>
-      <a class="tab tabs" href="*">
+      <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="turn">
          Edit file
       </a>
-      <a class="tab tabs  non-active" href="*">
+      <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="turn">
          Preview
       </a>
       <a class="action tabs save" href="*">
@@ -21,7 +21,15 @@
       </div>
    </div>
 </template>
-
+<script>
+   export default{
+      methods: {
+         turn () {
+            this.$store.commit('turnView')
+         }
+      }
+   }
+</script>
 <style scoped>
    .input-group{
       float: right;
@@ -41,11 +49,12 @@
        padding: 0.75rem 0.8rem;
    }
    #menu{
-      margin-top: 8px;
+      margin-top: 20px;
       padding: 0;
       height: 45px;
    }
    .tabs{
+      cursor: pointer;
       margin: 0;
       padding: 0;
       height: 45px;
@@ -81,8 +90,8 @@
       color: black;
    }
    .non-active:hover{
-      color: #777;
-      background-color: rgb(225,225,225);
+      color: #777 !important;
+      background-color: rgb(225,225,225) !important;
    }
    .action{
       float: right;
