@@ -1,6 +1,5 @@
 <template>
-   <div id="text-box" contenteditable>
-   </div>
+   <div id="text-box" :contenteditable="this.$store.state.isContEd"></div>
 </template>
 
 <style scoped>

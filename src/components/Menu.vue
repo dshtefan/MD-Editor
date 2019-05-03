@@ -1,12 +1,12 @@
 <template>
    <div id="menu">
-      <a class="docs tabs" href="*">
+      <a class="docs tabs" @click="openList">
          Docs
       </a>
-      <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="turn">
+      <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="turnEdit">
          Edit file
       </a>
-      <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="turn">
+      <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="turnPreview">
          Preview
       </a>
       <a class="action tabs save" href="*">
@@ -24,8 +24,19 @@
 <script>
    export default{
       methods: {
-         turn () {
-            this.$store.commit('turnView')
+         turnEdit () {
+            this.$store.commit('turnList', false);
+            this.$store.commit('turnView', false);
+            this.$store.commit('turnContEd', true);
+         },
+         turnPreview () {
+            this.$store.commit('turnList', false);
+            this.$store.commit('turnView', true);
+            this.$store.commit('turnContEd', false);
+         },
+         openList() {
+            this.$store.commit('turnList', !this.$store.state.listOfDocs);
+            this.$store.commit('turnContEd', !this.$store.state.listOfDocs);
          }
       }
    }
