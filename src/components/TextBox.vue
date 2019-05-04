@@ -1,8 +1,8 @@
 <template>
    <div>
+      <Modal/>
       <textarea v-if="this.$store.state.isContEd" id="text-box" class="textBox" v-html="content"></textarea>
       <div v-else id="text-box" v-html="content"></div>
-      <Modal/>
    </div>
 </template>
 <script>
@@ -26,15 +26,12 @@
 </script>
 <style scoped>
    #text-box{
-      margin-top: 20px;
       width: 100%;
       height: 600px;
       background-color: white;
       border: 1px solid #ddd;
       overflow: auto;
       padding: 0px;
-   }
-   .textBox{
-
+      resize: none;
    }
 </style>

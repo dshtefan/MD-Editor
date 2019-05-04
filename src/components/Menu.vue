@@ -44,8 +44,6 @@
             this.$store.commit('activateContent', 'html');
          },
          openList() {
-            this.$store.commit('turnList', !this.$store.state.listOfDocs);
-            this.$store.commit('turnContEd', !this.$store.state.listOfDocs);
          }
       }
    }
