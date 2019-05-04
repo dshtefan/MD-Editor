@@ -1,0 +1,17 @@
+<template>
+   <div class="modal bd-example-modal-lg" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Files</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               //Здесь будет список файлов
+            </div>
+         </div>
+      </div>
+   </div>
+</template>

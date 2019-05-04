@@ -1,7 +1,7 @@
 <template>
    <div id="menu">
-      <a class="docs tabs" @click="openList">
-         Docs
+      <a class="docs tabs" @click="openList" data-toggle="modal" data-target=".bd-example-modal-lg">
+         Files
       </a>
       <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="clickEdit">
          Edit file

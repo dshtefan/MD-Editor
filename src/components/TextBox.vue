@@ -1,9 +1,16 @@
 <template>
-   <textarea v-if="this.$store.state.isContEd" id="text-box" class="textBox" v-html="content"></textarea>
-   <div v-else id="text-box" v-html="content"></div>
+   <div>
+      <textarea v-if="this.$store.state.isContEd" id="text-box" class="textBox" v-html="content"></textarea>
+      <div v-else id="text-box" v-html="content"></div>
+      <Modal/>
+   </div>
 </template>
 <script>
+   import Modal from './Modal'
    export default{
+      components: {
+         Modal
+      },
       computed : {
          content() {
             if (this.$store.state.activeContent == "html"){
