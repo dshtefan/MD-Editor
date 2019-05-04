@@ -3,10 +3,10 @@
       <a class="docs tabs" @click="openList">
          Docs
       </a>
-      <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="turnEdit">
+      <a class="tab tabs" :class="{ 'non-active': this.$store.state.isPreview }" @click="clickEdit">
          Edit file
       </a>
-      <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="turnPreview">
+      <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="clickPreview">
          Preview
       </a>
       <a class="action tabs save" href="*">
@@ -24,15 +24,34 @@
 <script>
    export default{
       methods: {
-         turnEdit () {
+         clickEdit () {
             this.$store.commit('turnList', false);
             this.$store.commit('turnView', false);
             this.$store.commit('turnContEd', true);
+            if (this.$store.state.activeContent == "md"){
+               this.$store.commit('saveMD', document.getElementById('text-box').innerHTML);
+               /*
+               *  Здесь будет перевод из md  в html и сохранение через
+               *  this.$store.commit('saveHTML', cont)
+               */
+            }else {
+               this.$store.commit('activateContent', 'md');
+            }
+            document.getElementById('text-box').innerHTML = this.$store.state.contentMD;
          },
-         turnPreview () {
+         clickPreview () {
             this.$store.commit('turnList', false);
             this.$store.commit('turnView', true);
             this.$store.commit('turnContEd', false);
+            if (this.$store.state.activeContent == "md"){
+               this.$store.commit('saveMD', document.getElementById('text-box').innerHTML);
+               /*
+               *  Здесь будет перевод из md  в html и сохранение через
+               *  this.$store.commit('saveHTML', cont)
+               */
+            }
+            this.$store.commit('activateContent', 'html');
+            document.getElementById("text-box").innerHTML = this.$store.state.contentHTML;
          },
          openList() {
             this.$store.commit('turnList', !this.$store.state.listOfDocs);
