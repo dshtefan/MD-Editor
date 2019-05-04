@@ -9,7 +9,6 @@ const store = new Vuex.Store({
     isContEd: true,
     listOfDocs: false,
     contentMD: "",
-    contentHTML: "",
     activeContent: "md"
   },
   mutations: {
@@ -29,10 +28,7 @@ const store = new Vuex.Store({
       },
       saveMD (state, cont) {
          state.contentMD = cont
-      },
-      saveHTML (state, cont) {
-         state.contentHTML = cont
-      },
+      }
   }
 })
 
