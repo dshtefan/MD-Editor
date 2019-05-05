@@ -100,6 +100,7 @@
             })
          },
          saveFile(){
+            this.clickEdit();
             var content = document.getElementById('text-box').value;
             var name = document.getElementById('filename').value;
             var oldName = this.$store.state.fileName;
@@ -109,21 +110,22 @@
             var jsonOut = {
                'text': content,
                'name': name
-            }
+            };
             if(name == ""){
                alert("Введите название файла");
                return;
             }
             if(this.$store.state.id != ""){
-               jsonOut.id = this.$store.state.id;
-               alert("jebhfb");
+               jsonOut["id"] = this.$store.state.id;
                mode = "update";
             }
+            console.log(jsonOut);
             $.ajax({type: 'POST', url : "http://localhost:3012/"+ mode +"file",
                data: jsonOut, async:false})
                .done(
                   function(data){
-                    th.$store.commit('addId', data._id);
+                     if(data.upd != true)
+                        th.$store.commit('addId', data._id);
                  });
          }
       }

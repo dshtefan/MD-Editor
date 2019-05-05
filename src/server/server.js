@@ -55,14 +55,8 @@ app.post('/updatefile', function(req, res){
          text: req.body.text
       }
    };
-   db.collection('files').updateOne({ _id: new mongodb.ObjectID(req.body.id)}, file, function(err, result) {
-      if (err){
-         console.log(err);
-         res.sendStatus(500);
-         return;
-      }
-      res.send(file);
-   })
+   db.collection('files').updateOne({ _id: new mongodb.ObjectID(req.body.id)}, file);
+   res.send({ upd: true });
 });
 
 //Удаление файла по id
