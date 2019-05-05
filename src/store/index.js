@@ -6,32 +6,39 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     isPreview: false,
-    isContEd: true,
+    isContentEditable: true,
     listOfDocs: false,
     contentMD: "",
     activeContent: "md",
-    files: []
+    files: [],
+    fileName: ""
   },
   mutations: {
       turnView (state, n)  {
          state.isPreview = n
       },
       turnContEd (state, n)  {
-         state.isContEd = n
+         state.isContentEditable = n
       },
       turnList (state, n)  {
          state.listOfDocs = n
       },
-      activateContent (state, cont) {
-         if (cont == "md" || cont == "html"){
-            state.activeContent = cont
+      activateContent (state, content) {
+         if (content == "md" || content == "html"){
+            state.activeContent = content
          }
       },
-      saveMD (state, cont) {
-         state.contentMD = cont
+      saveMD (state, content) {
+         state.contentMD = content
       },
       addFiles (state, n)  {
          state.files = n
+      },
+      addFiles (state, n)  {
+         state.files = n
+      },
+      addFileName(state, name){
+         state.fileName = name
       }
   }
 })

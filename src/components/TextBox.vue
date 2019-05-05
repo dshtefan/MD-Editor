@@ -1,6 +1,6 @@
 <template>
    <div>
-      <textarea v-if="this.$store.state.isContEd" id="text-box" class="textBox" v-html="content"></textarea>
+      <textarea v-if="this.$store.state.isContentEditable" id="text-box" class="textBox" v-html="content"></textarea>
       <div v-else id="text-box" v-html="content"></div>
    </div>
 </template>

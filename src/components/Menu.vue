@@ -45,9 +45,6 @@
             }
             this.$store.commit('activateContent', 'html');
          },
-         sleep(t){
-             console.log(t);
-         },
          openList() {
             var files;
             $.ajax({type: 'POST', url : "http://localhost:3012/getfiles", async:false}).done(
@@ -58,6 +55,7 @@
              this.drawListofFiles(this.$store.state.files);
          },
          drawListofFiles(files){
+            var th = this;
             document.getElementById('modal-body').innerHTML = "";
             files.forEach(function(item, i){
                var divParent = document.createElement('div');
@@ -65,7 +63,6 @@
                var x = document.createElement('a');
                x.innerHTML="X"
                x.classList.add("col-1");
-               x.dataset.info = item._id;
                x.style.cursor = "pointer";
                x.addEventListener("click", function(){
                   $.ajax({type: 'POST', url : "http://localhost:3012/removefile",
@@ -84,8 +81,13 @@
                link.classList.add("col-11");
                link.dataset.dismiss = "modal";
                link.style.cursor = "pointer";
+
                link.addEventListener("click", function(){
-                  alert(this.$store.state.contentMD);
+                  th.$store.commit('saveMD', item.text);
+                  th.$store.commit('addFileName', item.name);
+                  document.getElementById('text-box').value = item.text;
+                  document.getElementById('filename').value = item.name;
+                  th.clickEdit();
                })
 
                var hR = document.createElement('hr');
