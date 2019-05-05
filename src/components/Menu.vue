@@ -54,14 +54,46 @@
                function(data){
                  files = data;
               });
-             this.drawListofFiles(files);
+             this.$store.state.files = files;
+             this.drawListofFiles(this.$store.state.files);
          },
          drawListofFiles(files){
-            files.forEach(function(item){
-               var curEl = document.createTextNode(item._id + "  " + item.name + " " + item.text);
+            document.getElementById('modal-body').innerHTML = "";
+            files.forEach(function(item, i){
+               var divParent = document.createElement('div');
+               var link = document.createElement('a');
+               var x = document.createElement('a');
+               x.innerHTML="X"
+               x.classList.add("col-1");
+               x.dataset.info = item._id;
+               x.style.cursor = "pointer";
+               x.addEventListener("click", function(){
+                  $.ajax({type: 'POST', url : "http://localhost:3012/removefile",
+                     data: { 'id': item._id }, async:false})
+                     .done(
+                        function(data){
+                          files = data;
+                       });
+                  this.dataset.dismiss = "modal";
+               })
+
+               divParent.classList.add("row");
+               divParent.id = "divParent" + i;
+
+               link.innerHTML = item.name;
+               link.classList.add("col-11");
+               link.dataset.dismiss = "modal";
+               link.style.cursor = "pointer";
+               link.addEventListener("click", function(){
+                  alert(this.$store.state.contentMD);
+               })
+
                var hR = document.createElement('hr');
-               document.getElementById('modal-body').appendChild(curEl);
-               document.getElementById('modal-body').appendChild(hR);
+               document.getElementById('modal-body').appendChild(divParent);
+               document.getElementById('divParent'+ i).appendChild(link);
+               document.getElementById('divParent' + i).appendChild(x);
+               if (i < files.length - 1)
+                  document.getElementById('modal-body').appendChild(hR);
             })
          }
       }
