@@ -9,7 +9,7 @@
       <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="clickPreview">
          Preview
       </a>
-      <a class="tabs save" href="*">
+      <a class="tabs save" @click="saveFile">
          Save
       </a>
       <div class="input-group input-group-lg">
@@ -85,6 +85,7 @@
                link.addEventListener("click", function(){
                   th.$store.commit('saveMD', item.text);
                   th.$store.commit('addFileName', item.name);
+                  th.$store.commit('addId', item._id);
                   document.getElementById('text-box').value = item.text;
                   document.getElementById('filename').value = item.name;
                   th.clickEdit();
@@ -97,6 +98,33 @@
                if (i < files.length - 1)
                   document.getElementById('modal-body').appendChild(hR);
             })
+         },
+         saveFile(){
+            var content = document.getElementById('text-box').value;
+            var name = document.getElementById('filename').value;
+            var oldName = this.$store.state.fileName;
+            var id;
+            var th = this;
+            var mode = "save";
+            var jsonOut = {
+               'text': content,
+               'name': name
+            }
+            if(name == ""){
+               alert("Введите название файла");
+               return;
+            }
+            if(this.$store.state.id != ""){
+               jsonOut.id = this.$store.state.id;
+               alert("jebhfb");
+               mode = "update";
+            }
+            $.ajax({type: 'POST', url : "http://localhost:3012/"+ mode +"file",
+               data: jsonOut, async:false})
+               .done(
+                  function(data){
+                    th.$store.commit('addId', data._id);
+                 });
          }
       }
    }

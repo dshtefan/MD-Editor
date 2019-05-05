@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     contentMD: "",
     activeContent: "md",
     files: [],
-    fileName: ""
+    fileName: "",
+    id: ""
   },
   mutations: {
       turnView (state, n)  {
@@ -39,6 +40,9 @@ const store = new Vuex.Store({
       },
       addFileName(state, name){
          state.fileName = name
+      },
+      addId(state, id){
+         state.id = id
       }
   }
 })

@@ -37,7 +37,25 @@ app.post('/savefile', function(req, res){
       name: req.body.name,
       text: req.body.text
    };
-   db.collection('files').insert(file, function(err, result) {
+   db.collection('files').insertOne(file, function(err, result) {
+      if (err){
+         console.log(err);
+         res.sendStatus(500);
+         return;
+      }
+      res.send(file);
+   })
+});
+
+//Обновление файла
+app.post('/updatefile', function(req, res){
+   var file = {
+      $set: {
+         name: req.body.name,
+         text: req.body.text
+      }
+   };
+   db.collection('files').updateOne({ _id: new mongodb.ObjectID(req.body.id)}, file, function(err, result) {
       if (err){
          console.log(err);
          res.sendStatus(500);
@@ -55,7 +73,6 @@ app.post('/removefile', function(req, res){
    db.collection('files').deleteOne(id);
    res.sendStatus(200);
 });
-
 
 MongoClient.connect('mongodb://localhost:27017/lab5', function(err, database){
    if (err) {
