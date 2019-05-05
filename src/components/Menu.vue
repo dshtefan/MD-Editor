@@ -44,6 +44,10 @@
             this.$store.commit('activateContent', 'html');
          },
          openList() {
+            $.post("http://localhost:3012/getfiles").done(
+               function Done(data){
+                 console.log(data);
+              })
          }
       }
    }
