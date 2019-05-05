@@ -9,7 +9,8 @@ const store = new Vuex.Store({
     isContEd: true,
     listOfDocs: false,
     contentMD: "",
-    activeContent: "md"
+    activeContent: "md",
+    files: []
   },
   mutations: {
       turnView (state, n)  {
@@ -28,6 +29,9 @@ const store = new Vuex.Store({
       },
       saveMD (state, cont) {
          state.contentMD = cont
+      },
+      addFiles (state, n)  {
+         state.files = n
       }
   }
 })

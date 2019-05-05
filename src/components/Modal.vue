@@ -8,8 +8,7 @@
                   <span>×</span>
                </button>
             </div>
-            <div class="modal-body">
-               //Здесь будет список файлов
+            <div id="modal-body" class="modal-body">
             </div>
          </div>
       </div>

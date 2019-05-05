@@ -9,20 +9,22 @@
       <a class="tab tabs" :class="{'non-active': !this.$store.state.isPreview }" @click="clickPreview">
          Preview
       </a>
-      <a class="action tabs save" href="*">
+      <a class="tabs save" href="*">
          Save
-      </a>
-      <a class="action tabs delete" href="*">
-         Delete
       </a>
       <div class="input-group input-group-lg">
         <input id="filename" type="text" class="form-control" placeholder="Filename" aria-describedby="sizing-addon2">
         <span class="input-group-addon" id="sizing-addon2">.md</span>
       </div>
+      <Modal/>
    </div>
 </template>
 <script>
+   import Modal from './Modal'
    export default{
+      components: {
+         Modal
+      },
       methods: {
          clickEdit () {
             this.$store.commit('turnList', false);
@@ -43,11 +45,24 @@
             }
             this.$store.commit('activateContent', 'html');
          },
+         sleep(t){
+             console.log(t);
+         },
          openList() {
-            $.post("http://localhost:3012/getfiles").done(
-               function Done(data){
-                 console.log(data);
-              })
+            var files;
+            $.ajax({type: 'POST', url : "http://localhost:3012/getfiles", async:false}).done(
+               function(data){
+                 files = data;
+              });
+             this.drawListofFiles(files);
+         },
+         drawListofFiles(files){
+            files.forEach(function(item){
+               var curEl = document.createTextNode(item._id + "  " + item.name + " " + item.text);
+               var hR = document.createElement('hr');
+               document.getElementById('modal-body').appendChild(curEl);
+               document.getElementById('modal-body').appendChild(hR);
+            })
          }
       }
    }
@@ -115,21 +130,13 @@
       color: #777 !important;
       background-color: rgb(225,225,225) !important;
    }
-   .action{
+   .save{
+      background-color: rgb(51,204,153);
       float: right;
       width: 60px;
       margin-left: 5px;
    }
-   .save{
-      background-color: rgb(51,204,153);
-   }
    .save:hover{
       background-color: rgb(51,204,191);
-   }
-   .delete{
-      background-color: rgb(255,64,64);
-   }
-   .delete:hover{
-      background-color: rgb(238,32,77);
    }
 </style>
